@@ -29,6 +29,7 @@ stacktrace.log
 *.swp
 *.swo
 *.war
+*.tld
 deployment/
 target/
 node_modules/
