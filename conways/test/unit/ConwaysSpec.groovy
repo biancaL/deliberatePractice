@@ -13,7 +13,19 @@ class ConwaysSpec extends Specification {
         numberOfAliveCells == 0
     }
 
+    def "alive cell with one neighbor dies"() {
+        given:
+        def numberOfNeighbors = 1
+
+        when:
+        def numberOfAliveCells = tick(numberOfNeighbors)
+
+        then:
+        numberOfAliveCells == 0
+    }
+
     def tick(numberOfNeighbors) {
-        return numberOfNeighbors
+        if(numberOfNeighbors < 2)
+            return 0
     }
 }
