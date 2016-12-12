@@ -24,8 +24,20 @@ class ConwaysSpec extends Specification {
         numberOfAliveCells == 0
     }
 
+    def "alive cell with two neighbors lives"() {
+        given:
+        def numberOfNeighbors = 2
+
+        when:
+        def numberOfAliveCells = tick(numberOfNeighbors)
+
+        then:
+        numberOfAliveCells == 1
+    }
+
     def tick(numberOfNeighbors) {
         if(numberOfNeighbors < 2)
             return 0
+        return 1
     }
 }
