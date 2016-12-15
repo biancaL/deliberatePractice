@@ -7,10 +7,10 @@ class ConwaysSpec extends Specification {
         def numberOfNeighbors = 0
 
         when:
-        def numberOfAliveCells = tick(numberOfNeighbors)
+        def cellIsAlive = tick(numberOfNeighbors)
 
         then:
-        numberOfAliveCells == 0
+        cellIsAlive == false
     }
 
     def "alive cell with one neighbor dies"() {
@@ -18,10 +18,10 @@ class ConwaysSpec extends Specification {
         def numberOfNeighbors = 1
 
         when:
-        def numberOfAliveCells = tick(numberOfNeighbors)
+        def cellIsAlive = tick(numberOfNeighbors)
 
         then:
-        numberOfAliveCells == 0
+        cellIsAlive == false
     }
 
     def "alive cell with two neighbors lives"() {
@@ -29,15 +29,26 @@ class ConwaysSpec extends Specification {
         def numberOfNeighbors = 2
 
         when:
-        def numberOfAliveCells = tick(numberOfNeighbors)
+        def cellIsAlive = tick(numberOfNeighbors)
 
         then:
-        numberOfAliveCells == 1
+        cellIsAlive == true
+    }
+
+    def "alive cell with three neighbors lives"() {
+        given:
+        def numberOfNeighbors = 3
+
+        when:
+        def cellIsAlive = tick(numberOfNeighbors)
+
+        then:
+        cellIsAlive == true
     }
 
     def tick(numberOfNeighbors) {
         if(numberOfNeighbors < 2)
-            return 0
-        return 1
+            return false
+        return true
     }
 }
