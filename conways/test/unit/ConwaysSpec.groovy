@@ -1,53 +1,32 @@
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class ConwaysSpec extends Specification {
 
-    def "alive cell with no neighbors dies"() {
-        given:
-        def numberOfNeighbors = 0
+
+    @Unroll
+    def "alive cell with number of neighbors = #numberOfNeighbors #stateOfCell"() {
 
         when:
         def cellIsAlive = tick(numberOfNeighbors)
 
         then:
-        cellIsAlive == false
+         cellIsAliveExpected == cellIsAlive
+
+        where:
+        numberOfNeighbors | cellIsAliveExpected
+        0                 | false
+        1                 | false
+        2                 | true
+        3                 | true
+
+        stateOfCell = cellIsAliveExpected ? "lives" : "dies"
+
     }
 
-    def "alive cell with one neighbor dies"() {
-        given:
-        def numberOfNeighbors = 1
-
-        when:
-        def cellIsAlive = tick(numberOfNeighbors)
-
-        then:
-        cellIsAlive == false
-    }
-
-    def "alive cell with two neighbors lives"() {
-        given:
-        def numberOfNeighbors = 2
-
-        when:
-        def cellIsAlive = tick(numberOfNeighbors)
-
-        then:
-        cellIsAlive == true
-    }
-
-    def "alive cell with three neighbors lives"() {
-        given:
-        def numberOfNeighbors = 3
-
-        when:
-        def cellIsAlive = tick(numberOfNeighbors)
-
-        then:
-        cellIsAlive == true
-    }
 
     def tick(numberOfNeighbors) {
-        if(numberOfNeighbors < 2)
+        if (numberOfNeighbors < 2)
             return false
         return true
     }
