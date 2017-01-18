@@ -22,6 +22,7 @@ class ConwaysSpec extends Specification {
         true                | 4                  | false
         false               | 0                  | false
         false               | 1                  | false
+        false               | 2                  | false
 
         stateOfCell = cellIsAliveAfterTick ? "is alive in the next generation" : "is dead in the next generation"
         initialStateOfCell = cellIsInitallyAlive ? "alive" : "dead"
