@@ -23,6 +23,7 @@ class ConwaysSpec extends Specification {
         false               | 0                  | false
         false               | 1                  | false
         false               | 2                  | false
+        false               | 3                  | true
 
         stateOfCell = cellIsAliveAfterTick ? "is alive in the next generation" : "is dead in the next generation"
         initialStateOfCell = cellIsInitallyAlive ? "alive" : "dead"
@@ -31,7 +32,7 @@ class ConwaysSpec extends Specification {
 
 
     def tick(numberOfNeighbours, cellIsInitiallyAlive) {
-        if (!cellIsInitiallyAlive || (numberOfNeighbours < 2 || numberOfNeighbours > 3))
+        if ((!cellIsInitiallyAlive && numberOfNeighbours !=3)  || ( cellIsInitiallyAlive && (numberOfNeighbours < 2 || numberOfNeighbours > 3)))
             return false
         return true
     }
