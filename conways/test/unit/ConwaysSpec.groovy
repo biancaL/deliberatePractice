@@ -5,28 +5,29 @@ class ConwaysSpec extends Specification {
 
 
     @Unroll
-    def "alive cell with number of neighbors = #numberOfNeighbors #stateOfCell"() {
+    def "alive cell with #numberOfNeighbours neighbour(s) #stateOfCell"() {
 
         when:
-        def cellIsAlive = tick(numberOfNeighbors)
+        def cellIsAlive = tick(numberOfNeighbours)
 
         then:
-         expectedStateOfCell == cellIsAlive
+        expectedStateOfCell == cellIsAlive
 
         where:
-        numberOfNeighbors | expectedStateOfCell
-        0                 | false
-        1                 | false
-        2                 | true
-        3                 | true
+        numberOfNeighbours | expectedStateOfCell
+        0                  | false
+        1                  | false
+        2                  | true
+        3                  | true
+        4                  | false
 
         stateOfCell = expectedStateOfCell ? "lives" : "dies"
 
     }
 
 
-    def tick(numberOfNeighbors) {
-        if (numberOfNeighbors < 2)
+    def tick(numberOfNeighbours) {
+        if (numberOfNeighbours < 2 || numberOfNeighbours > 3)
             return false
         return true
     }
