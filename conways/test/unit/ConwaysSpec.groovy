@@ -11,10 +11,10 @@ class ConwaysSpec extends Specification {
         def cellIsAlive = tick(numberOfNeighbours, cellIsInitallyAlive)
 
         then:
-        expectedStateOfCell == cellIsAlive
+        cellIsAliveAfterTick == cellIsAlive
 
         where:
-        cellIsInitallyAlive | numberOfNeighbours | expectedStateOfCell
+        cellIsInitallyAlive | numberOfNeighbours | cellIsAliveAfterTick
         true                | 0                  | false
         true                | 1                  | false
         true                | 2                  | true
@@ -22,7 +22,7 @@ class ConwaysSpec extends Specification {
         true                | 4                  | false
         false               | 0                  | false
 
-        stateOfCell = expectedStateOfCell ? "lives" : "dies"
+        stateOfCell = cellIsAliveAfterTick ? "is alive in the next generation" : "is dead in the next generation"
         initialStateOfCell = cellIsInitallyAlive ? "alive" : "dead"
 
     }
