@@ -11,16 +11,16 @@ class ConwaysSpec extends Specification {
         def cellIsAlive = tick(numberOfNeighbors)
 
         then:
-         cellIsAliveExpected == cellIsAlive
+         expectedStateOfCell == cellIsAlive
 
         where:
-        numberOfNeighbors | cellIsAliveExpected
+        numberOfNeighbors | expectedStateOfCell
         0                 | false
         1                 | false
         2                 | true
         3                 | true
 
-        stateOfCell = cellIsAliveExpected ? "lives" : "dies"
+        stateOfCell = expectedStateOfCell ? "lives" : "dies"
 
     }
 
