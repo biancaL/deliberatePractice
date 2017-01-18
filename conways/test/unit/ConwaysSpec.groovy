@@ -33,7 +33,9 @@ class ConwaysSpec extends Specification {
 
 
     def tick(numberOfNeighbours, cellIsInitiallyAlive) {
-        if ((!cellIsInitiallyAlive && numberOfNeighbours !=3)  || ( cellIsInitiallyAlive && (numberOfNeighbours < 2 || numberOfNeighbours > 3)))
+        def deadCellWithThreeNeighbours = !cellIsInitiallyAlive && numberOfNeighbours != 3
+        def aliveCellWithLessThanTwoOrMoreThanThreeNeighbours = cellIsInitiallyAlive && (numberOfNeighbours < 2 || numberOfNeighbours > 3)
+        if (deadCellWithThreeNeighbours || aliveCellWithLessThanTwoOrMoreThanThreeNeighbours)
             return false
         return true
     }
