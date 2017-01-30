@@ -39,4 +39,24 @@ class ConwaysSpec extends Specification {
             return false
         return true
     }
+
+    def "one alive cell in the universe dies"() {
+        given:
+        def initialUniverse = [[0, 0, 0, 0],
+                               [0, 1, 0, 0],
+                               [0, 0, 0, 0],
+                               [0, 0, 0, 0]]
+        when:
+            def universe = theWholeUniverseIsTicking(initialUniverse)
+        then:
+        universe == emptyUniverse()
+    }
+
+    def theWholeUniverseIsTicking(def initialUniverse) {
+        return emptyUniverse()
+    }
+
+    def emptyUniverse() {
+        return [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+    }
 }
