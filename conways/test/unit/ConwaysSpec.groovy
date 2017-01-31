@@ -8,7 +8,7 @@ class ConwaysSpec extends Specification {
     def "#initialStateOfCell cell with #numberOfNeighbours neighbour(s) #stateOfCell"() {
 
         when:
-        def cellIsAlive = tick(numberOfNeighbours, cellIsInitallyAlive)
+        def cellIsAlive = isCellAliveAfterTick(numberOfNeighbours, cellIsInitallyAlive)
 
         then:
         cellIsAliveAfterTick == cellIsAlive
@@ -31,8 +31,23 @@ class ConwaysSpec extends Specification {
 
     }
 
+    def "universe with one alive cell dies in the next generation"() {
+        given:
+        def cellInitialStructure = [cellIsInitiallyAlive: true, numberOfNeigbours: 0]
 
-    def tick(numberOfNeighbours, cellIsInitiallyAlive) {
+        when:
+        def universeIsAliveAfterTick = isUniverseAliveAfterTick(cellInitialStructure)
+
+        then:
+        !universeIsAliveAfterTick
+
+    }
+
+    def isUniverseAliveAfterTick(cellInitialStructure) {
+        return isCellAliveAfterTick(cellInitialStructure.numberOfNeighbours, cellInitialStructure.cellIsInitiallyAlive)
+    }
+
+    def isCellAliveAfterTick(numberOfNeighbours, cellIsInitiallyAlive) {
         def deadCellWithThreeNeighbours = !cellIsInitiallyAlive && numberOfNeighbours != 3
         def aliveCellWithLessThanTwoOrMoreThanThreeNeighbours = cellIsInitiallyAlive && (numberOfNeighbours < 2 || numberOfNeighbours > 3)
         if (deadCellWithThreeNeighbours || aliveCellWithLessThanTwoOrMoreThanThreeNeighbours)
@@ -40,23 +55,4 @@ class ConwaysSpec extends Specification {
         return true
     }
 
-    def "one alive cell in the universe dies"() {
-        given:
-        def initialUniverse = [[0, 0, 0, 0],
-                               [0, 1, 0, 0],
-                               [0, 0, 0, 0],
-                               [0, 0, 0, 0]]
-        when:
-            def universe = theWholeUniverseIsTicking(initialUniverse)
-        then:
-        universe == emptyUniverse()
-    }
-
-    def theWholeUniverseIsTicking(def initialUniverse) {
-        return emptyUniverse()
-    }
-
-    def emptyUniverse() {
-        return [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-    }
 }
