@@ -1,6 +1,7 @@
+import groovy.util.logging.Log4j
 import spock.lang.Specification
 import spock.lang.Unroll
-
+@Log4j
 class ConwaysSpec extends Specification {
 
 
@@ -33,7 +34,7 @@ class ConwaysSpec extends Specification {
 
     def "universe with one alive cell dies in the next generation"() {
         given:
-        def cellInitialStructure = [cellIsInitiallyAlive: true, numberOfNeigbours: 0]
+        def cellInitialStructure = [[cellIsInitiallyAlive: true, numberOfNeigbours: 0]]
 
         when:
         def universeIsAliveAfterTick = isUniverseAliveAfterTick(cellInitialStructure)
@@ -43,8 +44,24 @@ class ConwaysSpec extends Specification {
 
     }
 
+    def "universe with two alive cells that are next to each other dies in the next generation"() {
+        given:
+        def cellInitialStructure = [[cellIsInitiallyAlive: true, numberOfNeighbours: 1],
+                                    [cellIsInitiallyAlive: true, numberOfNeighbours: 1]]
+
+        when:
+        def universeIsAliveAfterTick = isUniverseAliveAfterTick(cellInitialStructure)
+
+        then:
+        !universeIsAliveAfterTick
+
+    }
+
+
     def isUniverseAliveAfterTick(cellInitialStructure) {
-        return isCellAliveAfterTick(cellInitialStructure.numberOfNeighbours, cellInitialStructure.cellIsInitiallyAlive)
+        cellInitialStructure.collect {
+            isCellAliveAfterTick(it.numberOfNeighbours, it.cellIsInitiallyAlive)
+        }.find{it}
     }
 
     def isCellAliveAfterTick(numberOfNeighbours, cellIsInitiallyAlive) {
