@@ -1,7 +1,6 @@
-import groovy.util.logging.Log4j
 import spock.lang.Specification
 import spock.lang.Unroll
-@Log4j
+
 class ConwaysSpec extends Specification {
 
 
@@ -26,42 +25,31 @@ class ConwaysSpec extends Specification {
         false               | 2                  | false
         false               | 3                  | true
         false               | 4                  | false
-
+        //todo: 8 neighbours & 9 -> negative path
         stateOfCell = cellIsAliveAfterTick ? "is alive in the next generation" : "is dead in the next generation"
         initialStateOfCell = cellIsInitallyAlive ? "alive" : "dead"
 
     }
 
-    def "universe with one alive cell dies in the next generation"() {
+    def "seed with two alive cells that are neighbours transforms in a dead generation after tick"() {
         given:
-        def cellInitialStructure = [[cellIsInitiallyAlive: true, numberOfNeigbours: 0]]
+        def seedWithTwoNeighbourCells = [[cellIsInitiallyAlive: true, numberOfNeighbours: 1],
+                                         [cellIsInitiallyAlive: true, numberOfNeighbours: 1]]
 
         when:
-        def universeIsAliveAfterTick = isUniverseAliveAfterTick(cellInitialStructure)
+        def nextGenerationAfterTick = generationAfterTick(seedWithTwoNeighbourCells)
 
         then:
-        !universeIsAliveAfterTick
+        nextGenerationAfterTick == deadGeneration()
 
     }
 
-    def "universe with two alive cells that are next to each other dies in the next generation"() {
-        given:
-        def cellInitialStructure = [[cellIsInitiallyAlive: true, numberOfNeighbours: 1],
-                                    [cellIsInitiallyAlive: true, numberOfNeighbours: 1]]
-
-        when:
-        def universeIsAliveAfterTick = isUniverseAliveAfterTick(cellInitialStructure)
-
-        then:
-        !universeIsAliveAfterTick
-
+    def deadGeneration() {
+        return ""
     }
 
-
-    def isUniverseAliveAfterTick(cellInitialStructure) {
-        cellInitialStructure.collect {
-            isCellAliveAfterTick(it.numberOfNeighbours, it.cellIsInitiallyAlive)
-        }.find{it}
+    def generationAfterTick(generation) {
+        return ""
     }
 
     def isCellAliveAfterTick(numberOfNeighbours, cellIsInitiallyAlive) {
