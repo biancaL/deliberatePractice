@@ -62,7 +62,7 @@ class ConwaysSpec extends Specification {
         false                | -1
     }
 
-    def "seed with two alive cells that are neighbours transforms in a dead generation after tick"() {
+    def "seed with two alive cells that are neighbours turns into a dead generation after tick"() {
         given:
         def seedWithTwoNeighbourCells = [1, 1]
 
@@ -74,7 +74,7 @@ class ConwaysSpec extends Specification {
 
     }
 
-    def "seed with three alive cells that are neighbours into a generation with four alive neighbour cells after tick"() {
+    def "seed with three alive cells that are neighbours turns into a generation with four alive neighbour cells after tick"() {
         given:
         def seedWithThreeNeighbours = [2, 2, 2]
 
@@ -87,8 +87,21 @@ class ConwaysSpec extends Specification {
     }
 
 
+    def "seed with four alive cells that are neighbours remains the same"() {
+        given:
+        def seedWithThreeNeighbours = [3, 3, 3, 3]
+
+        when:
+        def nextGenerationAfterTick = generationAfterTick(seedWithThreeNeighbours)
+
+        then:
+        nextGenerationAfterTick == [3, 3, 3, 3]
+
+    }
+
+
     def generationAfterTick(generation) {
-        if(generation.size() > 2) {
+        if(generation.size() >= 3) {
             return [3, 3, 3, 3]
         }
         else return deadGeneration
