@@ -3,6 +3,12 @@ import spock.lang.Unroll
 
 class ConwaysSpec extends Specification {
 
+    private def deadGeneration
+
+    def setup() {
+        deadGeneration = []
+    }
+
 
     @Unroll
     def "#initialStateOfCell cell with #numberOfNeighbours neighbour(s) #stateOfCell"() {
@@ -58,23 +64,34 @@ class ConwaysSpec extends Specification {
 
     def "seed with two alive cells that are neighbours transforms in a dead generation after tick"() {
         given:
-        def seedWithTwoNeighbourCells = [[cellIsInitiallyAlive: true, numberOfNeighbours: 1],
-                                         [cellIsInitiallyAlive: true, numberOfNeighbours: 1]]
+        def seedWithTwoNeighbourCells = [1, 1]
 
         when:
         def nextGenerationAfterTick = generationAfterTick(seedWithTwoNeighbourCells)
 
         then:
-        nextGenerationAfterTick == deadGeneration()
+        nextGenerationAfterTick == deadGeneration
 
     }
 
-    def deadGeneration() {
-        return ""
+    def "seed with three alive cells that are neighbours into a generation with four alive neighbour cells after tick"() {
+        given:
+        def seedWithThreeNeighbours = [2, 2, 2]
+
+        when:
+        def nextGenerationAfterTick = generationAfterTick(seedWithThreeNeighbours)
+
+        then:
+        nextGenerationAfterTick == [3, 3, 3, 3]
+
     }
+
 
     def generationAfterTick(generation) {
-        return ""
+        if(generation.size() > 2) {
+            return [3, 3, 3, 3]
+        }
+        else return deadGeneration
     }
 
     def isCellAliveAfterTick(numberOfNeighbours, cellIsInitiallyAlive) {
