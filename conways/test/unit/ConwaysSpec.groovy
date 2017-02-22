@@ -20,12 +20,20 @@ class ConwaysSpec extends Specification {
         true                | 2                  | true
         true                | 3                  | true
         true                | 4                  | false
+        true                | 5                  | false
+        true                | 6                  | false
+        true                | 7                  | false
+        true                | 8                  | false
         false               | 0                  | false
         false               | 1                  | false
         false               | 2                  | false
         false               | 3                  | true
         false               | 4                  | false
-        //todo: 8 neighbours & 9 -> negative path
+        false               | 5                  | false
+        false               | 6                  | false
+        false               | 7                  | false
+        false               | 8                  | false
+
         stateOfCell = cellIsAliveAfterTick ? "is alive in the next generation" : "is dead in the next generation"
         initialStateOfCell = cellIsInitallyAlive ? "alive" : "dead"
 
